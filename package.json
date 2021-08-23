@@ -1,0 +1,30 @@
+{
+  "name": "movies-explorer-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "lint": "npx eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/totktobroditvokrug/movies-explorer-api.git"
+  },
+  "keywords": [],
+  "author": "Enot",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/totktobroditvokrug/movies-explorer-api/issues"
+  },
+  "homepage": "https://github.com/totktobroditvokrug/movies-explorer-api#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.7",
+    "nodemon": "^2.0.12",
+    "validator": "^13.6.0"
+  }
+}
