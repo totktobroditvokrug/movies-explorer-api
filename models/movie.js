@@ -21,8 +21,8 @@ const movieSchema = new mongoose.Schema({
   },
   year: {
     type: String,
-    minlength: 1,
-    maxlength: 50,
+    minlength: 2,
+    maxlength: 4,
     required: true,
   },
   description: {
@@ -61,7 +61,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   movieId : {
-    type: mongoose.Schema.Types.ObjectId,  // Возможно, заменить на HEX
+    type: Number,  // Возможно, заменить на HEX
     required: true,
   },
   nameRU: {
