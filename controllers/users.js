@@ -26,7 +26,7 @@ const signupHandler = (req, res, next) => {
   const {
     name, email, password,
   } = req.body;
-  console.log('создание пользователя с e-mail:', email);
+  // console.log('создание пользователя с e-mail:', email);
   if (!email || !password || !name) {
     const err = new Error('No user fields set');
     err.statusCode = ERROR_CODE;
@@ -122,38 +122,52 @@ const getUserProfile = (req, res, next) => {
 
 const updateProfile = (req, res, next) => {
   const { _id } = req.user;
-  const { name } = req.body;
-   console.log('обновление профиля', _id, name);
-  if (!name || !_id) {
+  const { name, email } = req.body;
+  // console.log('обновление профиля', _id, name, email);
+  if (!name || !email || !_id) {
     const err = new Error('No user fields set');
     err.statusCode = ERROR_CODE;
     return next(err);
   }
-
-  return User.findByIdAndUpdate(
-    _id,
-    { name },
-    {
-      new: true, // обработчик then получит на вход обновлённую запись
-      runValidators: true, // данные будут валидированы перед изменением
-    },
-  )
-    .orFail(() => {
-      const err = new Error('Not exist id');
-      err.name = 'NotExistId';
-      err.statusCode = ERROR_ID;
-      throw err;
-    })
-    .then((user) => res.status(STATUS_OK).send({ data: user }))
-    .catch((err) => {
-      console.log(err);
-      if (err.name === 'CastError') {
-        const error = new Error('Not valid id');
-        error.statusCode = ERROR_CODE;
-        return next(error);
-      }
-      return next(err);
-    });
+  User.findOne({ email: email }) // ----- проверка по базе идентичного email
+  .then((result) => {
+    if(!result) {
+    //  console.log('email свободен');
+      return User.findByIdAndUpdate(
+        _id,
+        { name, email },
+        {
+          new: true, // обработчик then получит на вход обновлённую запись
+          runValidators: true, // данные будут валидированы перед изменением
+        },
+      )
+        .orFail(() => {
+          const err = new Error('Not exist id');
+          err.name = 'NotExistId';
+          err.statusCode = ERROR_ID;
+          throw err;
+        })
+        .then((user) => res.status(STATUS_OK).send({ data: user }))
+        .catch((err) => {
+          console.log(err);
+          if (err.name === 'CastError') {
+            const error = new Error('Not valid id');
+            error.statusCode = ERROR_CODE;
+            return next(error);
+          }
+          return next(err);
+        });
+    }
+    else {
+    // console.log('нашелся такой же email');
+     const error = new Error('User already exists');
+     error.statusCode = ERROR_DUPLICATE;
+     return next(error);
+    }
+  })
+  .catch((err) => {
+    return next(err);
+  });
 };
 
 module.exports = {
