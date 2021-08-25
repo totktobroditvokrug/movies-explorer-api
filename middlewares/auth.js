@@ -1,10 +1,8 @@
+const jwt = require('jsonwebtoken');
 const {
-  PORT,
   JWT_SECRET_KEY,
-  DB_ADDRESS,
 } = require('../configs');
 
-const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 const {

@@ -13,7 +13,7 @@ const checkURL = (value) => {
 const {
   getSavedMovies,
   createMovie,
-  delMovieById
+  delMovieById,
 } = require('../controllers/movies');
 
 router.get('', getSavedMovies);
@@ -28,19 +28,19 @@ router.post('',
       image: Joi.string().custom(checkURL),
       trailer: Joi.string().custom(checkURL),
       thumbnail: Joi.string().custom(checkURL),
-    //  owner: Joi.string().required().length(24).hex(),
-      movieId: Joi.number().required(),  // внешний айдишник практикума
+      //  owner: Joi.string().required().length(24).hex(),
+      movieId: Joi.number().required(), // внешний айдишник практикума
       nameRU: Joi.string().min(1).max(200),
       nameEN: Joi.string().min(1).max(200),
     }).unknown(true),
   }),
-createMovie);
-router.delete('/:movieId',  // внутренний айди монгодб
+  createMovie);
+router.delete('/:movieId', // внутренний айди монгодб
   celebrate({
     params: Joi.object().keys({
       movieId: Joi.string().required().length(24).hex(),
     }),
   }),
-delMovieById);
+  delMovieById);
 
 module.exports = router;

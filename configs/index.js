@@ -1,9 +1,10 @@
 require('dotenv').config();
 const rateLimit = require('express-rate-limit');
 
-const { PORT=3000,
-  JWT_SECRET_KEY='dev_secret',
-  DB_ADDRESS='mongodb://localhost:27017/bitfilmsdb',
+const {
+  PORT = 3000,
+  JWT_SECRET_KEY = 'dev_secret',
+  DB_ADDRESS = 'mongodb://localhost:27017/moviesdb',
 } = process.env;
 
 const limiter = rateLimit({
@@ -15,5 +16,5 @@ module.exports = {
   PORT,
   JWT_SECRET_KEY,
   DB_ADDRESS,
-  limiter
-}
+  limiter,
+};

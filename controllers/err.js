@@ -1,13 +1,5 @@
 const {
-  STATUS_OK,
-  ERROR_CODE,
-  ERROR_DEF,
-  ERROR_LOGIN,
-  ERROR_DUPLICATE,
-  MONGO_DUPLICATE_EMAIL,
-  ERROR_AUTH,
   ERROR_ID,
-  ERROR_ACCES,
 } = require('../configs/err_const');
 
 const errRoute = (req, res, next) => {

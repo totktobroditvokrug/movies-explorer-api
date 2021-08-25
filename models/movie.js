@@ -60,8 +60,8 @@ const movieSchema = new mongoose.Schema({
     ref: 'user',
     required: true,
   },
-  movieId : {
-    type: Number,  // Возможно, заменить на HEX
+  movieId: {
+    type: Number, // Возможно, заменить на HEX
     required: true,
   },
   nameRU: {

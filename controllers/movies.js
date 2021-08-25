@@ -3,11 +3,6 @@ const Movie = require('../models/movie');
 const {
   STATUS_OK,
   ERROR_CODE,
-  ERROR_DEF,
-  ERROR_LOGIN,
-  ERROR_DUPLICATE,
-  MONGO_DUPLICATE_EMAIL,
-  ERROR_AUTH,
   ERROR_ID,
   ERROR_ACCES,
 } = require('../configs/err_const');
@@ -36,23 +31,23 @@ const createMovie = (req, res, next) => {
     thumbnail,
     movieId,
     nameRU,
-    nameEN
+    nameEN,
   } = req.body;
 
   Movie.create({
-     country,
-     director,
-     duration,
-     year,
-     description,
-     image,
-     trailer,
-     thumbnail,
-     owner,
-     movieId,
-     nameRU,
-     nameEN
-    })
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailer,
+    thumbnail,
+    owner,
+    movieId,
+    nameRU,
+    nameEN,
+  })
     .then((movie) => res.status(STATUS_OK).send(movie))
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -119,5 +114,5 @@ const delMovieById = (req, res, next) => {
 module.exports = {
   getSavedMovies,
   createMovie,
-  delMovieById
+  delMovieById,
 };

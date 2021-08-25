@@ -9,11 +9,10 @@ const movies = require('./movies');
 const auth = require('../middlewares/auth');
 const errRoute = require('./err');
 
-
 router.get('/test', (req, res) => {
   console.log('проверка роутов');
   res.status(200).send('test OK');
-} );
+});
 
 // Роуты авторизации
 router.post('/signup',
@@ -24,7 +23,7 @@ router.post('/signup',
       name: Joi.string().min(2).max(30),
     }).unknown(true),
   }),
-signupHandler); // createUser
+  signupHandler); // createUser
 router.post('/signin',
   celebrate({
     body: Joi.object().keys({
@@ -32,7 +31,7 @@ router.post('/signin',
       password: Joi.string().required().min(8),
     }).unknown(true),
   }),
-signinHandler); // login
+  signinHandler); // login
 
 router.use(auth); // защита остальных роутов авторизацией
 

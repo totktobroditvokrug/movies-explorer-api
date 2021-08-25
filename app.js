@@ -1,18 +1,17 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const helmet = require('helmet');
+const { errors } = require('celebrate');
+const cors = require('cors');
 const {
   PORT,
   DB_ADDRESS,
-  limiter
+  limiter,
 } = require('./configs');
 
-const mongoose = require('mongoose');
-
-const routes = require('./routes');  // все роуты
+const routes = require('./routes'); // все роуты
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const helmet = require('helmet');
-const { errors } = require('celebrate');
 const { errorsHandler } = require('./controllers/err');
-const cors = require('cors');
 
 mongoose.connect(DB_ADDRESS, {
   useNewUrlParser: true,

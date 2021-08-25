@@ -2,22 +2,17 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
-const {  // коды ошибок
+const { // коды ошибок
   STATUS_OK,
   ERROR_CODE,
-  ERROR_DEF,
   ERROR_LOGIN,
   ERROR_DUPLICATE,
   MONGO_DUPLICATE_EMAIL,
-  ERROR_AUTH,
   ERROR_ID,
-  ERROR_ACCES,
 } = require('../configs/err_const');
 
-const {   // переменные окружения
-  PORT,
+const { // переменные окружения
   JWT_SECRET_KEY,
-  DB_ADDRESS,
 } = require('../configs');
 
 const saltRounds = 10; // разрядность "соли" для хэша
@@ -129,45 +124,42 @@ const updateProfile = (req, res, next) => {
     err.statusCode = ERROR_CODE;
     return next(err);
   }
-  User.findOne({ email: email }) // ----- проверка по базе идентичного email
-  .then((result) => {
-    if(!result) {
-    //  console.log('email свободен');
-      return User.findByIdAndUpdate(
-        _id,
-        { name, email },
-        {
-          new: true, // обработчик then получит на вход обновлённую запись
-          runValidators: true, // данные будут валидированы перед изменением
-        },
-      )
-        .orFail(() => {
-          const err = new Error('Not exist id');
-          err.name = 'NotExistId';
-          err.statusCode = ERROR_ID;
-          throw err;
-        })
-        .then((user) => res.status(STATUS_OK).send({ data: user }))
-        .catch((err) => {
-          console.log(err);
-          if (err.name === 'CastError') {
-            const error = new Error('Not valid id');
-            error.statusCode = ERROR_CODE;
-            return next(error);
-          }
-          return next(err);
-        });
-    }
-    else {
-    // console.log('нашелся такой же email');
-     const error = new Error('User already exists');
-     error.statusCode = ERROR_DUPLICATE;
-     return next(error);
-    }
-  })
-  .catch((err) => {
-    return next(err);
-  });
+  return User.findOne({ email }) // ----- проверка по базе идентичного email
+    .then((result) => {
+      if (!result) {
+        //  console.log('email свободен');
+        return User.findByIdAndUpdate(
+          _id,
+          { name, email },
+          {
+            new: true, // обработчик then получит на вход обновлённую запись
+            runValidators: true, // данные будут валидированы перед изменением
+          },
+        )
+          .orFail(() => {
+            const err = new Error('Not exist id');
+            err.name = 'NotExistId';
+            err.statusCode = ERROR_ID;
+            throw err;
+          })
+          .then((user) => res.status(STATUS_OK).send({ data: user }))
+          .catch((err) => {
+            console.log(err);
+            if (err.name === 'CastError') {
+              const error = new Error('Not valid id');
+              error.statusCode = ERROR_CODE;
+              return next(error);
+            }
+            return next(err);
+          });
+      }
+
+      // console.log('нашелся такой же email');
+      const error = new Error('User already exists');
+      error.statusCode = ERROR_DUPLICATE;
+      return next(error);
+    })
+    .catch((err) => next(err));
 };
 
 module.exports = {
