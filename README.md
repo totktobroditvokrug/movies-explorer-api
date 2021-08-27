@@ -1,3 +1,4 @@
 # movies-explorer-api
+
+сервер находится по адресу:
 https://api.nekto.lukas.nomoredomains.work
-IP 178.154.198.37
