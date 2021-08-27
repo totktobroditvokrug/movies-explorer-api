@@ -3,6 +3,6 @@ const {
   errRoute,
 } = require('../controllers/err');
 
-router.get('*', errRoute);
+router.all('*', errRoute);
 
 module.exports = router;

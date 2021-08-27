@@ -143,6 +143,7 @@ const updateProfile = (req, res, next) => {
             throw err;
           })
           .then((user) => res.status(STATUS_OK).send({ data: user }))
+
           .catch((err) => {
             console.log(err);
             if (err.name === 'CastError') {

@@ -82,15 +82,15 @@ const delMovieById = (req, res, next) => {
             err.statusCode = ERROR_ID;
             throw err;
           })
-          .then((result) => res.status(STATUS_OK).send(result))
-          .catch((err) => {
-            if (err.name === 'CastError') {
-              const error = new Error('Not exist movie id');
-              error.statusCode = ERROR_CODE;
-              return next(error);
-            }
-            return next(err);
-          });
+          .then((result) => res.status(STATUS_OK).send(result));
+        // .catch((err) => {
+        //   if (err.name === 'CastError') {
+        //     const error = new Error('Not exist movie id');
+        //     error.statusCode = ERROR_CODE;
+        //     return next(error);
+        //   }
+        //   return next(err);
+        // })
       }
 
       const err = new Error(`Пользователь с id=${userId} не имеет прав на удаление этой карточки`);
