@@ -6,7 +6,7 @@ const movieSchema = new mongoose.Schema({
   country: {
     type: String,
     minlength: 1,
-    maxlength: 50,
+    maxlength: 500,
     required: true,
   },
   director: {
@@ -28,16 +28,18 @@ const movieSchema = new mongoose.Schema({
   description: {
     type: String,
     minlength: 1,
-    maxlength: 200,
+    maxlength: 2000,
     required: true,
   },
   image: {
     type: String,
+    minlength: 1,
+    maxlength: 300,
     required: true,
-    validate: {
-      validator: (v) => isURL(v),
-      message: 'Неправильный формат ссылки',
-    },
+    // validate: {
+    //   validator: (v) => isURL(v),
+    //   message: 'Неправильный формат ссылки',
+    // },
   },
   trailer: {
     type: String,
@@ -49,11 +51,13 @@ const movieSchema = new mongoose.Schema({
   },
   thumbnail: {
     type: String,
+    minlength: 1,
+    maxlength: 300,
     required: true,
-    validate: {
-      validator: (v) => isURL(v),
-      message: 'Неправильный формат ссылки',
-    },
+    // validate: {
+    //   validator: (v) => isURL(v),
+    //   message: 'Неправильный формат ссылки',
+    // },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,

@@ -7,7 +7,7 @@ const {
   ERROR_ACCES,
 } = require('../configs/err_const');
 
-const getSavedMovies = (req, res, next) => Movie.find({})
+const getSavedMovies = (req, res, next) => Movie.find({owner: req.user._id})
   .then((movie) => {
     if (!movie) {
       const err = new Error('Карточки не найдены');
@@ -83,14 +83,6 @@ const delMovieById = (req, res, next) => {
             throw err;
           })
           .then((result) => res.status(STATUS_OK).send(result));
-        // .catch((err) => {
-        //   if (err.name === 'CastError') {
-        //     const error = new Error('Not exist movie id');
-        //     error.statusCode = ERROR_CODE;
-        //     return next(error);
-        //   }
-        //   return next(err);
-        // })
       }
 
       const err = new Error(`Пользователь с id=${userId} не имеет прав на удаление этой карточки`);
@@ -106,10 +98,7 @@ const delMovieById = (req, res, next) => {
       return next(err);
     });
 };
-// const delMovieById = (req, res, next) => {
-//   const { movieId } = req.params;
-//   res.status(STATUS_OK).send(`роут удаления фильма ${movieId}`);
-// }
+
 
 module.exports = {
   getSavedMovies,

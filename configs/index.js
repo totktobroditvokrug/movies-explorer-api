@@ -4,7 +4,7 @@ const rateLimit = require('express-rate-limit');
 const {
   PORT = 3000,
   JWT_SECRET_KEY = 'dev_secret',
-  DB_ADDRESS = 'mongodb://localhost:27017/moviesdb',
+  DB_ADDRESS = 'mongodb://localhost:27017/moviesdb_rev1',
 } = process.env;
 
 const limiter = rateLimit({

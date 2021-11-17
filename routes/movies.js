@@ -20,15 +20,15 @@ router.get('', getSavedMovies);
 router.post('',
   celebrate({
     body: Joi.object().keys({
-      country: Joi.string().required().min(1).max(50),
-      director: Joi.string().required().min(1).max(50),
+      country: Joi.string().required().min(1).max(200),
+      director: Joi.string().required().min(1).max(200),
       duration: Joi.number().required(),
       year: Joi.string().min(2).max(4).required(),
-      description: Joi.string().min(1).max(200),
-      image: Joi.string().custom(checkURL),
+      description: Joi.string().min(1).max(2000),
+      image: Joi.string().min(1).max(300),
       trailer: Joi.string().custom(checkURL),
-      thumbnail: Joi.string().custom(checkURL),
-      //  owner: Joi.string().required().length(24).hex(),
+      thumbnail: Joi.string().min(1).max(300),
+      owner: Joi.string().required().length(24).hex(),
       movieId: Joi.number().required(), // внешний айдишник практикума
       nameRU: Joi.string().min(1).max(200),
       nameEN: Joi.string().min(1).max(200),

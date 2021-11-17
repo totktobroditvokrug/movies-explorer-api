@@ -32,5 +32,5 @@ app.use(errors()); // обработчик ошибок celebrate
 app.use(errorsHandler); // централизованный обработчик ошибок
 
 app.listen(PORT, () => {
-  console.log(`Слушаем порт ${PORT}`);
+  console.log(`Слушаем внимательно порт ${PORT}`);
 });
