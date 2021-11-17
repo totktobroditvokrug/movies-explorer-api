@@ -20,3 +20,7 @@ module.exports = {
   ERROR_ID,
   ERROR_ACCES,
 };
+
+// PORT=3001
+// JWT_SECRET_KEY='dev_secret'
+

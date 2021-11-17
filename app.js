@@ -15,8 +15,6 @@ const { errorsHandler } = require('./controllers/err');
 
 mongoose.connect(DB_ADDRESS, {
   useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
   useUnifiedTopology: true,
 });
 
