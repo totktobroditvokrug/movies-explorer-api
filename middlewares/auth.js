@@ -38,7 +38,7 @@ module.exports = (req, res, next) => {
     return next(err);
   }
 
-  // console.log('пэйлоуд авторизации:', payload._id);
+  console.log('пэйлоуд авторизации:', payload._id);
   return User.findById(payload._id) // смотрим, что такой пользователь есть
     .orFail(() => {
       const err = new Error('Not exist payload');

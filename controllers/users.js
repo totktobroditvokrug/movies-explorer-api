@@ -126,7 +126,11 @@ const updateProfile = (req, res, next) => {
   }
   return User.findOne({ email }) // ----- проверка по базе идентичного email
     .then((result) => {
-      if (!result) {
+      let foundId = "";
+//      console.log('result=', result, !!result);
+      if(!!result) foundId = JSON.stringify(result._id);
+//      console.log('foundId=', foundId);
+      if (!result || (foundId === `"${_id}"`)) {
         //  console.log('email свободен');
         return User.findByIdAndUpdate(
           _id,
